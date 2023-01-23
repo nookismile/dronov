@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Среднее арифметическое</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function average2(...params) {
+                 let sum = 0;
+                 let result;
+                for (let i = 0; i <= params.length; i++) {
+                    if(typeof params[i] === 'number' ) {
+                        sum += params[i];
+                    }
+                }
+
+                result = sum / params.length;
+                console.log(result);
+                return result;
+
+            }
+            average2([10, 20], 30, [40, 50], 60, [70, 80, 90, 100]);
+            average2('[10, 20]', 30, [40, '50'], 60, ['70, 80', 90, 100]);
+        </script>
+    </body>
+</html>

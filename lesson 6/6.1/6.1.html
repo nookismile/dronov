@@ -72,6 +72,16 @@
     const preview = document.getElementById('preview');
     let current = buttons[0];
 
+    function imageOutput(btn) {
+        output.src = btn.href;
+        buttons.forEach((el) => {
+            if (el == btn)
+                el.className = 'active';
+            else
+                el.className = '';
+        });
+    }
+
     function showImage(evt) {
         if(evt.target !== this) {
             evt.preventDefault();
@@ -106,4 +116,36 @@
     buttonset.addEventListener('click', showImage);
     buttonset.addEventListener('mouseover', showPreview);
     buttonset.addEventListener('mouseout', hidePreview);
+    output.addEventListener('contextmenu', (evt) => {
+        evt.preventDefault();
+    });
+    buttonset.addEventListener('mouseover', (evt) => {
+        if (evt.target !== this && evt.target === current)
+            evt.stopPropagation();
+    }, true);
+    window.document.body.onkeydown = (evt) => {
+        let i, currentIndex;
+        for (i = 0; i < buttons.length; ++i) {
+            if(buttons[i] === current) {
+                currentIndex = i;
+                break;
+            }
+            switch(evt) {
+                case 37:
+                    if (currentIndex === 0)
+                        current = buttons[buttons.length - 1];
+                    else
+                        current = buttons[currentIndex - 1];
+                    imageOutput(current);
+                    break;
+                case 39:
+                    if (currentIndex === buttons.length - 1)
+                        current = buttons[0];
+                    else
+                        current = buttons[currentIndex + 1];
+                    imageOutput(current);
+                    break;
+            }
+        }
+    }
 </script>
